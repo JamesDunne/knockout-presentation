@@ -355,11 +355,12 @@ function ViewModel3() {
 					</div>
                 </section>
 
-                <section>
+                <section data-state="video_show">
                     <h2>Whoopdee doo! I don't care.</h2>
-                    <video class="fragment"
-                           poster="//i.imgur.com/s4KXBTzb.jpg" preload="auto" autoplay="autoplay" muted="muted" loop="loop"
+                    <video id="video" class="fragment"
+                           preload="auto" autoplay="autoplay" muted="muted" loop="loop"
                            width="480" height="342">
+                        <source src="images/shame.webm" type="video/webm">
                         <source src="//i.bittwiddlers.org/LZK.webm" type="video/webm">
                         <source src="//i.imgur.com/s4KXBTz.webm" type="video/webm">
                     </video>
@@ -367,7 +368,10 @@ function ViewModel3() {
 
                 <section>
                     <h2>Whoopdee doo! I don't care.</h2>
+                    <img class="" style="width: 100%;" src="images/faith.gif" alt="I find your lack of faith disturbing" title="I find your lack of faith disturbing">
+                    <!--
                     <img class="" style="width: 100%;" src="http://i.bittwiddlers.org/Kwn.gif" alt="I find your lack of faith disturbing" title="I find your lack of faith disturbing">
+                    -->
                 </section>
             </div>
         </div>
@@ -416,6 +420,15 @@ function ViewModel3() {
                 var vm = new ctor();
                 ko.applyBindings(vm, slide);
             }
+
+            Reveal.addEventListener('video_show', function(e) {
+                // Reveal.getCurrentSlide() is wrong. There appears to be no way to know the current slide here!
+                var videos = document.getElementsByTagName("video");
+                for (var i = 0; i < videos.length; i++) {
+                    videos[i].currentTime = 0;
+                    videos[i].play();
+                }
+            });
         </script>
     </body>
 </html>
