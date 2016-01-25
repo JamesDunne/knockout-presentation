@@ -64,6 +64,7 @@
                         <li class="fragment">Automatic UI refresh</li>
                         <li class="fragment">Dependency tracking</li>
                         <li class="fragment">Templating</li>
+						<li class="fragment">Very low learning curve</li>
                     </ul>
                     <aside class="notes">
                         <p>Declarative bindings: Easily associate DOM elements with model data using a concise, readable syntax</p>
@@ -72,6 +73,17 @@
                         <p>Templating: Quickly generate sophisticated, nested UIs as a function of your model data</p>
                     </aside>
                 </section>
+
+				<section>
+					<h2>Why Knockout?</h2>
+					<ul>
+						<li class="fragment">Separation of HTML presentation from JavaScript logic</li>
+						<li class="fragment">Ideal for collaborative environment and division of labor</li>
+						<li class="fragment">View model gets updated automatically when UI changes and vice versa</li>
+						<li class="fragment">No need for manual jQuery event handling</li>
+						<li class="fragment">Much less code than jQuery to express complex data bindings</li>
+					</ul>
+				</section>
 
                 <section>
                     <h2>Binding</h2>
@@ -104,6 +116,23 @@
 </script>
 					</div>
                 </section>
+
+				<section>
+					<h2>Observables</h2>
+					<ul>
+						<li class="fragment"><code>ko.observable()</code> creates an observable value.</li>
+						<li class="fragment">You can subscribe to its changes and access its current value.</li>
+						<li class="fragment">You can update its value and have its subscribers notified.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Computed Observables</h2>
+					<ul>
+						<li class="fragment"><code>ko.computed(function() {...})</code> creates a computed observable.</li>
+						<li class="fragment">Computed observables are re-evaluated when their dependencies change.</li>
+					</ul>
+				</section>
 
                 <section>
                     <section>
