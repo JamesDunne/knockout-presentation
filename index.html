@@ -20,6 +20,18 @@
         <!-- Code syntax highlighting -->
         <link rel="stylesheet" href="lib/css/zenburn.css">
 
+		<style>
+			pre.inline {
+				display: inline-block;
+				width: initial;
+				box-shadow: none;
+				margin: initial;
+			}
+			pre.inline code {
+				display: inline-block;
+			}
+		</style>
+
         <!-- Printing and PDF exports -->
         <script>
             var link = document.createElement( 'link' );
@@ -96,15 +108,15 @@
                 <section>
                     <h2>Binding</h2>
                     <ul>
-                        <li><code>data-bind</code> attributes in HTML</li>
-                        <li><code>ko.observable()</code> for properties</li>
-                        <li><code>ko.applyBindings()</code> to activate bindings</li>
+                        <li><pre class="inline"><code class="hljs html">data-bind</code></pre> attributes in HTML</li>
+                        <li><pre class="inline"><code class="hljs javascript">ko.observable()</code></pre> for properties</li>
+                        <li><pre class="inline"><code class="hljs javascript">ko.applyBindings()</code></pre> to activate bindings</li>
                     </ul>
                 </section>
 
-                <section data-ko="ViewModel1">
+                <section>
                     <h2>Binding</h2>
-                    <pre><code data-trim>
+                    <pre><code class="hljs html" data-trim>
 &lt;span data-bind="text: message">Default text.&lt;/span>
 
 &lt;script>
@@ -114,8 +126,8 @@
   ko.applyBindings(new ViewModel());
 &lt;/script>
                     </code></pre>
-					<b>Interactive Example</b>
-					<div style="background: #dddddd">
+					<b>Interactive Example</b>&nbsp;<button onclick="runExample('example1', ViewModel1)">Bind</button>
+					<div style="background: #dddddd" id="example1">
 <span data-bind="text: message">Default text.</span>
 <script>
   function ViewModel1() {
@@ -125,52 +137,33 @@
 					</div>
                 </section>
 
-				<section>
-					<h2>Observables</h2>
-					<ul>
-						<li class="fragment"><code>ko.observable()</code> creates an observable value.</li>
-						<li class="fragment">You can subscribe to its changes and access its current value.</li>
-						<li class="fragment">You can update its value and have its subscribers notified.</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Computed Observables</h2>
-					<ul>
-						<li class="fragment"><code>ko.computed(function() {...})</code> creates a computed observable.</li>
-						<li class="fragment">Computed observables are re-evaluated when their dependencies change.</li>
-					</ul>
-				</section>
-
                 <section>
                     <section>
                         <h2>Example</h2>
                         <div class="stretch">
-                        <pre><code class="hljs" data-trim contenteditable>
+                        <pre><code class="hljs html" data-trim>
 &lt;p>
   Choose a ticket class:
   &lt;select data-bind="options: tickets,
-                        optionsCaption: 'Choose...',
-                        optionsText: 'name',
-                        value: chosenTicket">&lt;/select>
+                     optionsCaption: 'Choose...',
+                     optionsText: 'name',
+                     value: chosenTicket">&lt;/select>
 
   &lt;button data-bind="enable: chosenTicket,
-                        click: resetTicket">Clear&lt;/button>
+                     click: resetTicket">Clear&lt;/button>
 &lt;/p>
                         </code></pre>
-                        <pre><code class="hljs" data-trim contenteditable>
-&lt;script>
-  function TicketsViewModel() {
-    this.tickets = [
-      { name: "Economy", price: 199.95 },
-      { name: "Business", price: 449.22 },
-      { name: "First Class", price: 1199.99 }
-    ];
-    this.chosenTicket = ko.observable();
-    this.resetTicket = function() { this.chosenTicket(null); };
-  }
-  ko.applyBindings(new TicketsViewModel());
-&lt;/script>
+                        <pre><code class="hljs javascript" data-trim>
+function TicketsViewModel() {
+  this.tickets = [
+    { name: "Economy", price: 199.95 },
+    { name: "Business", price: 449.22 },
+    { name: "First Class", price: 1199.99 }
+  ];
+  this.chosenTicket = ko.observable();
+  this.resetTicket = function() { this.chosenTicket(null); };
+}
+ko.applyBindings(new TicketsViewModel());
                         </code></pre>
                         </div>
                     </section>
@@ -204,8 +197,66 @@
                     </section>
                 </section>
 
-                <section>
+				<section>
+					<h2>Observables</h2>
+					<ul>
+						<li class="fragment"><pre class="inline"><code class="hljs javascript">ko.observable()</code></pre> creates an observable value.</li>
+						<li class="fragment">Subscribe to it to receive notifications when its value changes.</li>
+						<li class="fragment">Update its value to have subscribers notified.</li>
+					</ul>
+				</section>
 
+				<section>
+					<h2>Computed Observables</h2>
+					<ul>
+						<li class="fragment"><pre class="inline"><code class="hljs javascript">ko.computed(function() {})</code></pre> creates a <em>computed</em> observable.</li>
+						<li class="fragment">Automatically register subscriptions during evaluation.</li>
+						<li class="fragment">Re-evaluated when subscriptions change.</li>
+					</ul>
+				</section>
+
+                <section>
+					<h2>Computed Observables</h2>
+					<h3>Example</h3>
+					<pre><code class="hljs html" data-trim>
+&lt;p>
+  Enter value for a: &lt;input type="text" data-bind="value: a">&lt;br/>
+  a = &lt;span data-bind="text: a">&lt;/span>
+  b = &lt;span data-bind="text: b">&lt;/span>
+&lt;/p>
+					</code></pre>
+					<pre><code class="hljs javascript" data-trim>
+function ViewModel() {
+  this.a = ko.observable(1);
+
+  // Computed observable `b` subscribes to `a`, gets its value
+  // as a number and adds 1.
+  this.b = ko.computed(function() {
+    return Number(this.a()) + 1;
+  }, this);
+}
+					</code></pre>
+				</section>
+				<section data-ko="ViewModel3">
+					<div>
+						<b>Interactive Example:</b>
+						<div style="background: #dddddd">
+							Enter value for a: <input type="text" data-bind="value: a"><br/>
+							a = <span data-bind="text: a"></span><br/>
+							b = <span data-bind="text: b"></span><br/>
+							<script>
+function ViewModel3() {
+	this.a = ko.observable(1);
+
+	// Computed observable `b` subscribes to `a`, gets its value
+	// as a number and adds 1.
+	this.b = ko.computed(function() {
+		return Number(this.a()) + 1;
+	}, this);
+}
+							</script>
+						</div>
+					</div>
                 </section>
 
             </div>
@@ -240,12 +291,18 @@
             });
 
 			Reveal.addEventListener('slidechanged', function(e) {
+				// Check if data-ko attribute exists:
 				var slide = e.currentSlide;
 				var ctorName = slide.getAttribute("data-ko");
-				// Yeah, this is trippy; we look up the constructor name in the global object:
-				var ctor = Function("return this")()[ctorName];
-				var vm = new ctor();
+				if (ctorName == void(0)) return;
+
+				// Clean the previous binding:
 				ko.cleanNode(slide);
+
+				// Look up the view model constructor name in the global object:
+				var ctor = Function("return this")()[ctorName];
+				// Create a new view model instance and bind it:
+				var vm = new ctor();
 				ko.applyBindings(vm, slide);
 			}, false);
         </script>
