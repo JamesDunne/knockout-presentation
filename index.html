@@ -315,17 +315,10 @@ function TicketsViewModel() {
 					</ul>
 				</section>
 
-                <section>
+                <section data-ko="ViewModel3">
 					<h2>Computed Observables</h2>
-					<h3>Example</h3>
-					<pre><code class="hljs html" data-trim>
-&lt;p>
-  Enter value for a: &lt;input type="text" data-bind="value: a">&lt;br/>
-  a = &lt;span data-bind="text: a">&lt;/span>
-  b = &lt;span data-bind="text: b">&lt;/span>
-&lt;/p>
-					</code></pre>
-					<pre><code class="hljs javascript" data-trim>
+                    <div class="stretch">
+					    <pre><code class="hljs javascript" data-trim>
 function ViewModel() {
   this.a = ko.observable(1);
 
@@ -335,12 +328,15 @@ function ViewModel() {
     return Number(this.a()) + 1;
   }, this);
 }
-					</code></pre>
-				</section>
-				<section data-ko="ViewModel3">
-					<div>
-						<b>Interactive Example:</b>
-						<div class="example">
+					    </code></pre>
+					    <pre class="fragment"><code class="hljs html" data-trim>
+&lt;p>
+  Enter value for a: &lt;input type="text" data-bind="value: a">&lt;br/>
+  a = &lt;span data-bind="text: a">&lt;/span>
+  b = &lt;span data-bind="text: b">&lt;/span>
+&lt;/p>
+					    </code></pre>
+						<div class="fragment example">
 							Enter value for a: <input type="text" data-bind="value: a"><br/>
 							a = <span data-bind="text: a"></span><br/>
 							b = <span data-bind="text: b"></span><br/>
