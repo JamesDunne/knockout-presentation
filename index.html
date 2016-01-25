@@ -37,7 +37,15 @@
     </head>
 
     <body>
-        <div class="reveal">
+		<script>
+			function runExample(id, ctor) {
+				var node = document.getElementById(id);
+				ko.cleanNode(node);
+				ko.applyBindings(new ctor(), node);
+			}
+		</script>
+
+		<div class="reveal">
             <!-- Any section element inside of this container is displayed as a slide -->
             <div class="slides">
 
@@ -94,10 +102,10 @@
                     </ul>
                 </section>
 
-                <section>
+                <section data-ko="ViewModel1">
                     <h2>Binding</h2>
                     <pre><code data-trim>
-&lt;span data-bind="text: message">&lt;/span>
+&lt;span data-bind="text: message">Default text.&lt;/span>
 
 &lt;script>
   function ViewModel() {
@@ -106,13 +114,13 @@
   ko.applyBindings(new ViewModel());
 &lt;/script>
                     </code></pre>
-					<div id="example1">
-<span data-bind="text: message"></span>
+					<b>Interactive Example</b>
+					<div style="background: #dddddd">
+<span data-bind="text: message">Default text.</span>
 <script>
   function ViewModel1() {
     this.message = ko.observable("Hello!");
   }
-  ko.applyBindings(new ViewModel1(), document.getElementById("example1"));
 </script>
 					</div>
                 </section>
@@ -166,9 +174,10 @@
                         </code></pre>
                         </div>
                     </section>
-                    <section>
-                        <h2>Example</h2>
-                        <div id="example2">
+
+                    <section data-ko="TicketsViewModel">
+						<b>Interactive Example</b>
+                        <div style="background: #dddddd">
                             Choose a ticket class:
                             <select data-bind="options: tickets,
                                                optionsCaption: 'Choose...',
@@ -188,9 +197,8 @@
                                         { name: "First Class", price: 1199.99 }
                                     ];
                                     this.chosenTicket = ko.observable();
-                                    this.resetTicket = function() { this.chosenTicket(null) }
+                                    this.resetTicket = function() { this.chosenTicket(null); };
                                 }
-                                ko.applyBindings(new TicketsViewModel(), document.getElementById("example2"));
                             </script>
                         </div>
                     </section>
@@ -231,7 +239,15 @@
                 ]
             });
 
+			Reveal.addEventListener('slidechanged', function(e) {
+				var slide = e.currentSlide;
+				var ctorName = slide.getAttribute("data-ko");
+				// Yeah, this is trippy; we look up the constructor name in the global object:
+				var ctor = Function("return this")()[ctorName];
+				var vm = new ctor();
+				ko.cleanNode(slide);
+				ko.applyBindings(vm, slide);
+			}, false);
         </script>
-
     </body>
 </html>
