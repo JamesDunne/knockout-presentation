@@ -66,7 +66,7 @@
 
                 <section>
                     <h1>KnockoutJS</h1>
-                    <h3>A ViewModel data binding library</h3>
+                    <h3>A view model data binding library</h3>
                 </section>
 
                 <section>
@@ -83,7 +83,7 @@
                 <section>
                     <h2>Why Knockout?</h2>
                     <ul>
-                        <li class="fragment">Declarative bindings</li>
+                        <li>Declarative bindings</li>
                         <li class="fragment">Automatic UI refresh</li>
                         <li class="fragment">Dependency tracking</li>
                         <li class="fragment">Templating</li>
@@ -91,34 +91,116 @@
                     </ul>
                     <aside class="notes">
                         <p>Declarative bindings: Easily associate DOM elements with model data using a concise, readable syntax</p>
-                        <p>Automatic UI Refresh: When your data model's state changes, your UI updates automatically</p>
-                        <p>Dependency Tracking: Implicitly set up chains of relationships between model data, to transform and combine it</p>
+                        <p>Automatic UI refresh: When your data model's state changes, your UI updates automatically</p>
+                        <p>Dependency tracking: Implicitly set up chains of relationships between model data, to transform and combine it</p>
                         <p>Templating: Quickly generate sophisticated, nested UIs as a function of your model data</p>
                     </aside>
                 </section>
 
 				<section>
-					<h2>Why Knockout?</h2>
+					<h2>Knockout features</h2>
 					<ul>
-						<li class="fragment">Separation of HTML presentation from JavaScript logic</li>
+						<li>Separation of HTML presentation from JavaScript logic</li>
 						<li class="fragment">Ideal for collaborative environment and division of labor</li>
-						<li class="fragment">View model gets updated automatically when UI changes and vice versa</li>
-						<li class="fragment">No need for manual jQuery event handling</li>
-						<li class="fragment">Much less code than jQuery to express complex data bindings</li>
+						<li class="fragment">UI gets updated automatically when view model changes and vice versa</li>
 					</ul>
 				</section>
 
                 <section>
-                    <h2>Binding</h2>
+                    <h2>Why not just use jQuery?</h2>
+                    <ul>
+                        <li>Knockout and jQuery solve different problems.</li>
+                        <li class="fragment">Knockout and jQuery can live well together.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Ok, so...</h2>
+                </section>
+                <section>
+                    <h2>Why use Knockout?</h2>
+                    <ul>
+                        <li class="fragment" data-fragment-index="2">jQuery UI manipulation is low-level.</li>
+                        <li class="fragment" data-fragment-index="2">Knockout binds UI to a view model.</li>
+
+                        <li class="fragment" data-fragment-index="3">jQuery UI binding is explicitly coded with CSS selectors ('#id', '.class').</li>
+                        <li class="fragment" data-fragment-index="3">Knockout binds UI via data-bind attributes in HTML.</li>
+
+                        <li class="fragment" data-fragment-index="4">Knockout bindings are easily copyable to multiple elements.</li>
+                        <li class="fragment" data-fragment-index="4">Knockout state is held in the view model not DOM elements; jQuery state is held in ... ?</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Why use Knockout?</h2>
+                    <ul>
+                        <li>Knockout's observable pattern is a game-changer for UI development.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Knockout Core Concepts</h2>
+                    <ul>
+                        <li>View</li>
+                        <li>View Model</li>
+                        <li>Model</li>
+                        <li>Bindings</li>
+                        <li>Observables</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>The View is...</h2>
+                    <pre><code class="hljs html" data-trim>
+&lt;span data-bind="text: message">&lt;/span>
+
+&lt;select data-bind="options: tickets,
+                   optionsCaption: 'Choose...',
+                   optionsText: 'name',
+                   value: chosenTicket">&lt;/select>
+
+&lt;button data-bind="click: runMe">Run!&lt;/button>
+                    </code></pre>
+                    <p>just HTML code with data-bind attributes applied to any element!</p>
+                </section>
+
+                <section>
+                    <h2>The View Model is...</h2>
+                    <pre><code class="hljs javascript" data-trim>
+function ViewModel() {
+  this.message = ko.observable("Hello!");
+  this.counter = ko.observable(1);
+}
+                    </code></pre>
+                    <p>just a JavaScript object with observable properties!</p>
+                </section>
+
+                <section>
+                    <h2>The Model is...</h2>
+                    <img class="fragment" src="images/whatever-your-imagination.png" title="whatever your imagination wants it to be!" alt="title="whatever your imagination wants it to be!"" />
+                </section>
+
+                <section>
+                    <h2>View Model Binding</h2>
+                    <pre><code class="hljs javascript" data-trim>
+var vm = new ViewModel();
+// Apply bindings to the whole document:
+ko.applyBindings(vm);
+// or only apply bindings to a specific element and its children:
+ko.applyBindings(vm, document.getElementById("onlyThisElement"));
+                    </code></pre>
+                    <p>Instantiate the view model object and call <pre class="inline"><code class="hljs javascript">ko.applyBindings()</code></pre> to apply the bindings in the HTML to the view model.</p>
+                </section>
+
+                <section>
+                    <h2>Quick Recap</h2>
                     <ul>
                         <li><pre class="inline"><code class="hljs html">data-bind</code></pre> attributes in HTML</li>
-                        <li><pre class="inline"><code class="hljs javascript">ko.observable()</code></pre> for properties</li>
+                        <li><pre class="inline"><code class="hljs javascript">ko.observable()</code></pre> for properties of view model</li>
                         <li><pre class="inline"><code class="hljs javascript">ko.applyBindings()</code></pre> to activate bindings</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>Binding</h2>
+                    <h2>View Model Binding</h2>
 					<h3>Example</h3>
                     <pre><code class="hljs html" data-trim>
 &lt;span data-bind="text: message">Default text.&lt;/span>
@@ -143,7 +225,7 @@
 
                 <section>
                     <section>
-                        <h2>Bindings demonstration</h2>
+                        <h2>Bindings Example</h2>
                         <div class="stretch">
                         <pre><code class="hljs html" data-trim>
 &lt;p>
@@ -173,7 +255,7 @@ ko.applyBindings(new TicketsViewModel());
                     </section>
 
                     <section data-ko="TicketsViewModel">
-						<h2>Bindings demonstration</h2>
+						<h2>Bindings Example</h2>
                         <div class="example">
                             Choose a ticket class:
                             <select data-bind="options: tickets,
@@ -214,8 +296,8 @@ ko.applyBindings(new TicketsViewModel());
 					<h2>Computed Observables</h2>
 					<ul>
 						<li><pre class="inline"><code class="hljs javascript">ko.computed(function() {})</code></pre> creates a <em>computed</em> observable.</li>
-						<li class="fragment">Automatically register subscriptions during evaluation.</li>
-						<li class="fragment">Re-evaluated when subscriptions change.</li>
+						<li class="fragment">Automatically subscribes to other observables during evaluation.</li>
+                        <li class="fragment">Evaluates when any subscriptions change.</li>
 					</ul>
 				</section>
 
