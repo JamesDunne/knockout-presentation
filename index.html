@@ -110,7 +110,8 @@
                     <h2>Why not just use jQuery?</h2>
                     <ul>
                         <li>Knockout and jQuery solve different problems.</li>
-                        <li class="fragment">Knockout and jQuery can live well together.</li>
+                        <li class="fragment">Both can co-exist well together.</li>
+                        <li class="fragment">If you do use both, just use jQuery for animations, effects, and convenient components.</li>
                     </ul>
                 </section>
                 <section>
@@ -119,14 +120,14 @@
                 <section>
                     <h2>Why use Knockout?</h2>
                     <ul>
-                        <li class="fragment" data-fragment-index="2">jQuery UI manipulation is low-level.</li>
-                        <li class="fragment" data-fragment-index="2">Knockout binds UI to a view model.</li>
+                        <li class="fragment" data-fragment-index="2">jQuery UI manipulation is low-level and repetitive per binding.</li>
+                        <li class="fragment" data-fragment-index="2">Knockout binds the whole UI at a high level, binding all elements to a single view model.</li>
 
-                        <li class="fragment" data-fragment-index="3">jQuery UI binding is explicitly coded with CSS selectors ('#id', '.class').</li>
-                        <li class="fragment" data-fragment-index="3">Knockout binds UI via data-bind attributes in HTML.</li>
+                        <li class="fragment" data-fragment-index="3">jQuery UI binding is explicit by CSS selectors ('#id', '.class').</li>
+                        <li class="fragment" data-fragment-index="3">Knockout binds UI via data-bind attributes in HTML in a single call.</li>
 
                         <li class="fragment" data-fragment-index="4">Knockout bindings are easily copyable to multiple elements.</li>
-                        <li class="fragment" data-fragment-index="4">Knockout state is held in the view model not DOM elements; jQuery state is held in ... ?</li>
+                        <li class="fragment" data-fragment-index="5">Knockout state is held in the view model not DOM elements; jQuery state is held in ... ?</li>
                     </ul>
                 </section>
                 <section>
@@ -256,29 +257,42 @@ ko.applyBindings(new TicketsViewModel());
 
                     <section data-ko="TicketsViewModel">
 						<h2>Bindings Example</h2>
-                        <div class="example">
-                            Choose a ticket class:
-                            <select data-bind="options: tickets,
-                                               optionsCaption: 'Choose...',
-                                               optionsText: 'name',
-                                               value: chosenTicket"></select>
-                            <button data-bind="enable: chosenTicket,
-                                               click: resetTicket">Clear</button>
-                            <p data-bind="with: chosenTicket">
-                                You have chosen <b data-bind="text: name"></b>
-                                ($<span data-bind="text: price"></span>)
-                            </p>
-                            <script type="text/javascript">
-                                function TicketsViewModel() {
-                                    this.tickets = [
-                                        { name: "Economy", price: 199.95 },
-                                        { name: "Business", price: 449.22 },
-                                        { name: "First Class", price: 1199.99 }
-                                    ];
-                                    this.chosenTicket = ko.observable();
-                                    this.resetTicket = function() { this.chosenTicket(null); };
-                                }
-                            </script>
+                        <div class="stretch">
+                            <pre><code class="hljs javascript" data-trim>
+function TicketsViewModel() {
+  this.tickets = [
+    { name: "Economy", price: 199.95 },
+    { name: "Business", price: 449.22 },
+    { name: "First Class", price: 1199.99 }
+  ];
+  this.chosenTicket = ko.observable();
+  this.resetTicket = function() { this.chosenTicket(null); };
+}
+                            </code></pre>
+                            <div class="example">
+                                Choose a ticket class:
+                                <select data-bind="options: tickets,
+                                                   optionsCaption: 'Choose...',
+                                                   optionsText: 'name',
+                                                   value: chosenTicket"></select>
+                                <button data-bind="enable: chosenTicket,
+                                                   click: resetTicket">Clear</button>
+                                <p data-bind="with: chosenTicket">
+                                    You have chosen <b data-bind="text: name"></b>
+                                    ($<span data-bind="text: price"></span>)
+                                </p>
+                                <script type="text/javascript">
+                                    function TicketsViewModel() {
+                                        this.tickets = [
+                                            { name: "Economy", price: 199.95 },
+                                            { name: "Business", price: 449.22 },
+                                            { name: "First Class", price: 1199.99 }
+                                        ];
+                                        this.chosenTicket = ko.observable();
+                                        this.resetTicket = function() { this.chosenTicket(null); };
+                                    }
+                                </script>
+                            </div>
                         </div>
                     </section>
                 </section>
@@ -376,21 +390,22 @@ function ViewModel3() {
                 ]
             });
 
-			Reveal.addEventListener('slidechanged', function(e) {
-				// Check if data-ko attribute exists:
-				var slide = e.currentSlide;
-				var ctorName = slide.getAttribute("data-ko");
-				if (ctorName == void(0)) return;
+            // Bind all knockout view models to their examples:
+            var sections = document.getElementsByTagName("section");
+            for (var i = 0; i < sections.length; i++) {
+                var slide = sections[i];
+                var ctorName = slide.getAttribute("data-ko");
+                if (ctorName == void(0)) continue;
 
-				// Clean the previous binding:
-				ko.cleanNode(slide);
+                // Clean the previous binding:
+                ko.cleanNode(slide);
 
-				// Look up the view model constructor name in the global object:
-				var ctor = Function("return this")()[ctorName];
-				// Create a new view model instance and bind it:
-				var vm = new ctor();
-				ko.applyBindings(vm, slide);
-			}, false);
+                // Look up the view model constructor name in the global object:
+                var ctor = Function("return this")()[ctorName];
+                // Create a new view model instance and bind it:
+                var vm = new ctor();
+                ko.applyBindings(vm, slide);
+            }
         </script>
     </body>
 </html>
