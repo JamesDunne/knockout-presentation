@@ -456,7 +456,7 @@ function ViewModel() {
 					</div>
                 </section>
 
-                <section data-state="video_show">
+                <section>
                     <h2>Whoopdee doo! I don't care.</h2>
                     <div class="stretch">
                         <img src="images/i-dont-care.gif" style="width: 100%;" alt="I don't care" title="I don't care">
@@ -595,17 +595,20 @@ function ViewModel4() {
                     <h2>Computed Observables</h2>
                     <ul>
                         <li>Can be used for AJAX queries, filtering, sorting, etc.</li>
+                        <li>Don't have to provide a value; can be used for side-effects.</li>
+                        <li>Don't have to be stored in the view model.</li>
+                        <li>Can be rate-limited for subscribers to not be spammed.</li>
                     </ul>
                 </section>
 
                 <section>
                     <h2>Foreach Sorting</h2>
                     <div class="stretch">
-                        <pre><code data-trim>
+                        <pre><code data-trim data-noescape>
 function ViewModel() {
   this.items = ko.observableArray([...]);
-  this.items_sorted = ko.computed(function() {
-    return this.items().sort(function(l,r) { return l.last > r.last; });
+  this.<mark>items_sorted</mark> = ko.computed(function() {
+    return this.items()<mark>.sort</mark>(function(l,r) { return l.last > r.last; });
   }, this);
 }
                         </code></pre>
@@ -627,11 +630,11 @@ function ViewModel() {
                 <section data-ko="ViewModel5">
                     <h2>Foreach Sorting</h2>
                     <div class="stretch">
-                        <pre><code data-trim>
+                        <pre><code data-trim data-noescape>
 function ViewModel() {
   this.items = ko.observableArray([...]);
-  this.items_sorted = ko.computed(function() {
-    return this.items().sort(function(l,r) { return l.last > r.last; });
+  this.<mark>items_sorted</mark> = ko.computed(function() {
+    return this.items()<mark>.sort</mark>(function(l,r) { return l.last > r.last; });
   }, this);
 }
                         </code></pre>
@@ -663,12 +666,7 @@ function ViewModel5() {
                     </div>
                 </section>
 
-                <section>
-                    <h2>To the code!</h2>
-                    <img class="" style="width: 60%;" src="images/to-the-code.gif">
-                </section>
-
-                <section>
+                <section data-state="video_show">
                     <h2>Questions?</h2>
                     <video id="video" class=""
                            preload="auto" autoplay="autoplay" muted="muted" loop="loop"
@@ -677,6 +675,10 @@ function ViewModel5() {
                     </video>
                 </section>
 
+                <section>
+                    <h2>To the code!</h2>
+                    <img class="" style="width: 60%;" src="images/to-the-code.gif">
+                </section>
             </div>
         </div>
 
