@@ -38,6 +38,29 @@
                 color: #ffffff;
             }
 
+            input[type=checkbox]
+            {
+                /* Double-sized Checkboxes */
+                -ms-transform: scale(2); /* IE */
+                -moz-transform: scale(2); /* FF */
+                -webkit-transform: scale(2); /* Safari and Chrome */
+                -o-transform: scale(2); /* Opera */
+                padding: 10px;
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+
+            input {
+                vertical-align: middle;
+                font-family: inherit;
+                font-size: large;
+            }
+            button {
+                vertical-align: middle;
+                font-family: inherit;
+                font-size: large;
+            }
+
             .reveal table th,
             .reveal table td {
                 text-align: left;
@@ -324,7 +347,7 @@ ko.applyBindings(vm, document.getElementById("onlyThisElement"));
 
                 <section>
                     <section>
-                        <h2>Bindings Example</h2>
+                        <h2>Bindings Examples</h2>
                         <div class="stretch">
                             <pre class=""><code class="hljs javascript" data-trim>
 function TicketsViewModel() {
@@ -354,7 +377,7 @@ ko.applyBindings(new TicketsViewModel());
                     </section>
 
                     <section data-ko="TicketsViewModel">
-						<h2>Bindings Example</h2>
+						<h2>Bindings Examples</h2>
                         <div class="stretch">
                             <pre><code class="hljs javascript" data-trim>
 function TicketsViewModel() {
@@ -396,12 +419,12 @@ function TicketsViewModel() {
                 </section>
 
                 <section>
-					<h2>Computed Observables</h2>
+					<h2>Bindings Examples</h2>
                     <div class="stretch">
 					    <pre class=""><code class="hljs html" data-trim>
 &lt;p>
-  a = &lt;input type="text" data-bind="value: a">&lt;br/>
-  b = &lt;input type="text" data-bind="value: b">&lt;br/>
+  a = &lt;input type="number" step="1" data-bind="value: a">&lt;br/>
+  b = &lt;input type="number" step="1" data-bind="value: b">&lt;br/>
   sum = &lt;span data-bind="text: sum">&lt;/span>
 &lt;/p>
 					    </code></pre>
@@ -421,18 +444,18 @@ function ViewModel() {
                 </section>
 
                 <section data-ko="ViewModel1">
-                    <h2>Computed Observables</h2>
+                    <h2>Bindings Examples</h2>
                     <div class="stretch">
 					    <pre class=""><code class="hljs html" data-trim>
 &lt;p>
-  a = &lt;input type="text" data-bind="value: a">&lt;br/>
-  b = &lt;input type="text" data-bind="value: b">&lt;br/>
+  a = &lt;input type="number" step="1" data-bind="value: a">&lt;br/>
+  b = &lt;input type="number" step="1" data-bind="value: b">&lt;br/>
   sum = &lt;span data-bind="text: sum">&lt;/span>
 &lt;/p>
 					    </code></pre>
 						<div class="example">
-							a = <input type="text" data-bind="value: a"><br/>
-							b = <input type="text" data-bind="value: b"><br/>
+							a = <input type="number" step="1" data-bind="value: a"><br/>
+							b = <input type="number" step="1" data-bind="value: b"><br/>
                             sum = <span data-bind="text: sum"></span>
 						</div>
 					</div>
