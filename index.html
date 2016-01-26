@@ -156,8 +156,8 @@
                         <li>View</li>
                         <li>View Model</li>
                         <li>Model</li>
-                        <li>Bindings</li>
                         <li>Observables</li>
+                        <li>Data-bindings</li>
                     </ul>
                 </section>
 
@@ -190,6 +190,69 @@ function ViewModel() {
                 <section>
                     <h2>The Model is...</h2>
                     <img class="fragment" src="images/whatever-your-imagination.png" title="whatever your imagination wants it to be!" alt="title="whatever your imagination wants it to be!"" />
+                </section>
+
+				<section>
+					<h2>Observables</h2>
+					<ul>
+						<li><pre class="inline"><code class="hljs javascript">ko.observable()</code></pre> creates an observable value.</li>
+                        <li class="fragment">Subscribe to it to receive notifications when its value changes.</li>
+                        <li class="fragment">Update its value to have subscribers notified.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Observables</h2>
+                    <pre><code class="hljs javascript" data-trim>
+var a = ko.observable(1);
+var b = ko.observable([2]);
+a();    // read a as 1
+b();    // read b as [2]
+a(3);   // set a to 3 and notify subscribers
+b([4]);   // set b to [4] and notify subscribers
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Computed Observables</h2>
+                    <ul>
+                        <li><pre class="inline"><code class="hljs javascript">ko.computed(function() {...})</code></pre> creates a <em>computed</em> observable.</li>
+                        <li class="fragment">Automatically subscribes to other observables during evaluation.</li>
+                        <li class="fragment">Evaluates when any subscriptions change.</li>
+                    </ul>
+                </section>
+
+                <section data-ko="ViewModel1">
+					<h2>Computed Observables</h2>
+                    <div class="stretch">
+					    <pre><code class="hljs javascript" data-trim>
+function ViewModel() {
+  this.a = ko.observable(1);
+  this.b = ko.observable(2);
+
+  // Computed observable `sum` subscribes to `a` and `b` and
+  // sums them together
+  this.sum = ko.computed(function() {
+    return Number(this.a()) + Number(this.b());
+  }, this);
+}
+					    </code></pre>
+						<div class="fragment example">
+							a = <span data-bind="text: a"></span><br/>
+							b = <span data-bind="text: b"></span><br/>
+                            sum = <span data-bind="text: sum"></span><br/>
+							<script>
+function ViewModel1() {
+	this.a = ko.observable(1);
+    this.b = ko.observable(2);
+
+	this.sum = ko.computed(function() {
+		return Number(this.a()) + Number(this.b());
+	}, this);
+}
+							</script>
+						</div>
+					</div>
                 </section>
 
                 <section>
@@ -225,11 +288,11 @@ ko.applyBindings(vm, document.getElementById("onlyThisElement"));
   ko.applyBindings(new ViewModel());
 &lt;/script>
                     </code></pre>
-					<b>Interactive Example</b>&nbsp;<button onclick="runExample('example1', ViewModel1)">Bind</button>
+					<b>Interactive Example</b>&nbsp;<button onclick="runExample('example1', ViewModel2)">Bind</button>
 					<div class="example" id="example1">
 <span data-bind="text: message">Default text.</span>
 <script>
-  function ViewModel1() {
+  function ViewModel2() {
     this.message = ko.observable("Hello!");
   }
 </script>
@@ -309,60 +372,45 @@ function TicketsViewModel() {
                     </section>
                 </section>
 
-				<section>
-					<h2>Observables</h2>
-					<ul>
-						<li><pre class="inline"><code class="hljs javascript">ko.observable()</code></pre> creates an observable value.</li>
-						<li class="fragment">Subscribe to it to receive notifications when its value changes.</li>
-						<li class="fragment">Update its value to have subscribers notified.</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Computed Observables</h2>
-					<ul>
-						<li><pre class="inline"><code class="hljs javascript">ko.computed(function() {})</code></pre> creates a <em>computed</em> observable.</li>
-						<li class="fragment">Automatically subscribes to other observables during evaluation.</li>
-                        <li class="fragment">Evaluates when any subscriptions change.</li>
-					</ul>
-				</section>
-
-                <section data-ko="ViewModel3">
+                <section>
 					<h2>Computed Observables</h2>
                     <div class="stretch">
-					    <pre><code class="hljs javascript" data-trim>
+					    <pre class=""><code class="hljs html" data-trim>
+&lt;p>
+  a = &lt;input type="text" data-bind="value: a">&lt;br/>
+  b = &lt;input type="text" data-bind="value: b">&lt;br/>
+  sum = &lt;span data-bind="text: sum">&lt;/span>
+&lt;/p>
+					    </code></pre>
+					    <pre class="fragment"><code class="hljs javascript" data-trim>
 function ViewModel() {
   this.a = ko.observable(1);
+  this.b = ko.observable(2);
 
-  // Computed observable `b` subscribes to `a`, gets its value
-  // as a number and adds 1.
-  this.b = ko.computed(function() {
-    return Number(this.a()) + 1;
+  // Computed observable `sum` subscribes to `a` and `b` and
+  // sums them together
+  this.sum = ko.computed(function() {
+    return Number(this.a()) + Number(this.b());
   }, this);
 }
 					    </code></pre>
-					    <pre class="fragment"><code class="hljs html" data-trim>
+                    </div>
+                </section>
+
+                <section data-ko="ViewModel1">
+                    <h2>Computed Observables</h2>
+                    <div class="stretch">
+					    <pre class=""><code class="hljs html" data-trim>
 &lt;p>
-  Enter value for a: &lt;input type="text" data-bind="value: a">&lt;br/>
-  a = &lt;span data-bind="text: a">&lt;/span>
-  b = &lt;span data-bind="text: b">&lt;/span>
+  a = &lt;input type="text" data-bind="value: a">&lt;br/>
+  b = &lt;input type="text" data-bind="value: b">&lt;br/>
+  sum = &lt;span data-bind="text: sum">&lt;/span>
 &lt;/p>
 					    </code></pre>
-						<div class="fragment example">
-							Enter value for a: <input type="text" data-bind="value: a"><br/>
-							a = <span data-bind="text: a"></span><br/>
-							b = <span data-bind="text: b"></span><br/>
-							<script>
-function ViewModel3() {
-	this.a = ko.observable(1);
-
-	// Computed observable `b` subscribes to `a`, gets its value
-	// as a number and adds 1.
-	this.b = ko.computed(function() {
-		return Number(this.a()) + 1;
-	}, this);
-}
-							</script>
+						<div class="example">
+							a = <input type="text" data-bind="value: a"><br/>
+							b = <input type="text" data-bind="value: b"><br/>
+                            sum = <span data-bind="text: sum"></span>
 						</div>
 					</div>
                 </section>
@@ -416,6 +464,13 @@ function ViewModel4() {
                     <!--
                     <img class="fragment" style="width: 100%;" src="http://i.bittwiddlers.org/Kwn.gif" alt="I find your lack of faith disturbing" title="I find your lack of faith disturbing">
                     -->
+                </section>
+
+                <section>
+                    <h2>Computed Observables</h2>
+                    <ul>
+                        <li>Can be used for side-effects, AJAX queries, filtering, sorting, etc.</li>
+                    </ul>
                 </section>
             </div>
         </div>
