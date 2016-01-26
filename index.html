@@ -37,7 +37,17 @@
                 background-color: #111170;
                 color: #ffffff;
             }
-		</style>
+
+            .reveal table th,
+            .reveal table td {
+                text-align: left;
+                padding-top: 0;
+                padding-right: 0.25em;
+                padding-left: 0.25em;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+        </style>
 
         <!-- Printing and PDF exports -->
         <script>
@@ -190,7 +200,7 @@ function ViewModel() {
 
                 <section>
                     <h2>The Model is...</h2>
-                    <img class="fragment" src="images/whatever-your-imagination.png" title="whatever your imagination wants it to be!" alt="title="whatever your imagination wants it to be!"" />
+                    <img class="fragment" style="width: 50%;" src="images/whatever-your-imagination.png" title="whatever your imagination wants it to be!" alt="title="whatever your imagination wants it to be!"" />
                 </section>
 
 				<section>
@@ -207,11 +217,23 @@ function ViewModel() {
                     <pre><code class="hljs javascript" data-trim>
 var a = ko.observable(1);
 var b = ko.observable([2]);
-a();    // read a as 1
-b();    // read b as [2]
-a(3);   // set a to 3 and notify subscribers
+a();      // read a as 1
+b();      // read b as [2]
+a(3);     // set a to 3 and notify subscribers
 b([4]);   // set b to [4] and notify subscribers
                     </code></pre>
+                </section>
+
+                <section>
+                    <h2>Observables</h2>
+                    <ul>
+                        <li>Observables are <em>functions</em>, not variables!</li>
+                    </ul>
+                    <pre class="fragment" data-fragment-index="1"><code class="hljs javascript" data-trim>
+                        var a = ko.observable(1);
+                        a = 2;      // DON'T DO THIS!
+                    </code></pre>
+                    <img class="fragment" data-fragment-index="1" style="width: 40%;" src="images/paddlin.gif">
                 </section>
 
                 <section>
@@ -226,14 +248,14 @@ b([4]);   // set b to [4] and notify subscribers
                 <section data-ko="ViewModel1">
 					<h2>Computed Observables</h2>
                     <div class="stretch">
-					    <pre><code class="hljs javascript" data-trim>
+					    <pre><code class="hljs javascript" data-trim data-noescape>
 function ViewModel() {
   this.a = ko.observable(1);
   this.b = ko.observable(2);
 
   // Computed observable `sum` subscribes to `a` and `b` and
   // sums them together
-  this.sum = ko.computed(function() {
+  this.sum = <mark>ko.computed</mark>(function() {
     return Number(this.a()) + Number(this.b());
   }, this);
 }
@@ -418,17 +440,26 @@ function ViewModel() {
 
                 <section data-state="video_show">
                     <h2>Whoopdee doo! I don't care.</h2>
-                    <!-- SHAME -->
-                    <video id="video" class="fragment"
-                           preload="auto" autoplay="autoplay" muted="muted" loop="loop"
-                           width="480" height="342">
-                        <source src="images/shame.webm" type="video/webm">
-                        <source src="//i.bittwiddlers.org/LZK.webm" type="video/webm">
-                        <source src="//i.imgur.com/s4KXBTz.webm" type="video/webm">
-                    </video>
+                    <div class="stretch">
+                        <img src="images/i-dont-care.gif" style="width: 100%;" alt="I don't care" title="I don't care">
+                    </div>
                 </section>
 
-                <section data-ko="ViewModel4">
+                <section data-state="video_show">
+                    <h2>Whoopdee doo! I don't care.</h2>
+                    <div class="stretch">
+                        <!-- SHAME -->
+                        <video id="video" class=""
+                               preload="auto" autoplay="autoplay" muted="muted" loop="loop"
+                               width="480" height="342">
+                            <source src="images/shame.webm" type="video/webm">
+                            <source src="//i.bittwiddlers.org/LZK.webm" type="video/webm">
+                            <source src="//i.imgur.com/s4KXBTz.webm" type="video/webm">
+                        </video>
+                    </div>
+                </section>
+
+                <section data-ko="ViewModel3">
                     <h2>Let me show you something...</h2>
                     <pre><code data-trim>
 function ViewModel() {
@@ -450,7 +481,7 @@ function ViewModel() {
                         <button data-bind="enable: a() && b() && c()">Enabled!</button>
                     </div>
                     <script>
-function ViewModel4() {
+function ViewModel3() {
   this.a = ko.observable(false);
   this.b = ko.observable(false);
   this.c = ko.observable(false);
@@ -468,8 +499,74 @@ function ViewModel4() {
                 </section>
 
                 <section>
+                    <h2>Fine; let me try something else...</h2>
+                    <img class="" style="width: 60%;" src="images/perseverance.gif">
+                </section>
+
+                <section>
                     <h2>Foreach binding</h2>
-                    <li></li>
+                    <div class="stretch">
+                        <pre><code data-trim>
+function ViewModel() {
+  this.items = ko.observableArray([
+    {last: "Dunne", first: "Jim", email: "jim.dunne@vivaki.com"},
+    {last: "Taggart", first: "Jay", email: "jay.taggart@vivaki.com"},
+    {last: "DuBose", first: "Lee", email: "lee.dubose@vivaki.com"},
+    {last: "Adams", first: "Lincoln", email: "lincoln.adams@vivaki.com"}
+  ]);
+}
+                        </code></pre>
+                        <pre class="fragment"><code data-trim data-noescape>
+&lt;table>
+    &lt;thead>&lt;tr>&lt;th>Last&lt;/th>&lt;th>First&lt;/th>&lt;th>Email&lt;/th>&lt;/tr>&lt;/thead>
+    &lt;tbody data-bind="<mark>foreach</mark>: items">
+        &lt;tr>
+            &lt;td data-bind="text: last">&lt;/td>
+            &lt;td data-bind="text: first">&lt;/td>
+            &lt;td data-bind="text: email">&lt;/td>
+        &lt;/tr>
+    &lt;/tbody>
+&lt;/table>
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section data-ko="ViewModel4">
+                    <h2>Foreach binding</h2>
+                    <div class="stretch">
+                        <pre><code data-trim>
+function ViewModel() {
+  this.items = ko.observableArray([
+    {last: "Dunne", first: "Jim", email: "jim.dunne@vivaki.com"},
+    {last: "Taggart", first: "Jay", email: "jay.taggart@vivaki.com"},
+    {last: "DuBose", first: "Lee", email: "lee.dubose@vivaki.com"},
+    {last: "Adams", first: "Lincoln", email: "lincoln.adams@vivaki.com"}
+  ]);
+}
+                        </code></pre>
+                        <div class="example" style="font-size: smaller">
+                            <table>
+                                <thead><tr><th>Last</th><th>First</th><th>Email</th></tr></thead>
+                                <tbody data-bind="foreach: items">
+                                    <tr>
+                                        <td data-bind="text: last"></td>
+                                        <td data-bind="text: first"></td>
+                                        <td data-bind="text: email"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <script>
+function ViewModel4() {
+    this.items = ko.observableArray([
+        {last: "Dunne", first: "Jim", email: "jim.dunne@vivaki.com"},
+        {last: "Taggart", first: "Jay", email: "jay.taggart@vivaki.com"},
+        {last: "DuBose", first: "Lee", email: "lee.dubose@vivaki.com"},
+        {last: "Adams", first: "Lincoln", email: "lincoln.adams@vivaki.com"}
+    ]);
+}
+                            </script>
+                        </div>
+                    </div>
                 </section>
 
                 <section>
@@ -478,6 +575,80 @@ function ViewModel4() {
                         <li>Can be used for AJAX queries, filtering, sorting, etc.</li>
                     </ul>
                 </section>
+
+                <section>
+                    <h2>Foreach Sorting</h2>
+                    <div class="stretch">
+                        <pre><code data-trim>
+function ViewModel() {
+  this.items = ko.observableArray([...]);
+  this.items_sorted = ko.computed(function() {
+    return this.items().sort(function(l,r) { return l.last > r.last; });
+  }, this);
+}
+                        </code></pre>
+                        <pre class="fragment"><code data-trim data-noescape>
+&lt;table>
+    &lt;thead>&lt;tr>&lt;th>Last&lt;/th>&lt;th>First&lt;/th>&lt;th>Email&lt;/th>&lt;/tr>&lt;/thead>
+    &lt;tbody data-bind="foreach: <mark>items_sorted</mark>">
+        &lt;tr>
+            &lt;td data-bind="text: last">&lt;/td>
+            &lt;td data-bind="text: first">&lt;/td>
+            &lt;td data-bind="text: email">&lt;/td>
+        &lt;/tr>
+    &lt;/tbody>
+&lt;/table>
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section data-ko="ViewModel5">
+                    <h2>Foreach Sorting</h2>
+                    <div class="stretch">
+                        <pre><code data-trim>
+function ViewModel() {
+  this.items = ko.observableArray([...]);
+  this.items_sorted = ko.computed(function() {
+    return this.items().sort(function(l,r) { return l.last > r.last; });
+  }, this);
+}
+                        </code></pre>
+                        <div class="example" style="font-size: smaller">
+                            <table>
+                                <thead><tr><th>Last</th><th>First</th><th>Email</th></tr></thead>
+                                <tbody data-bind="foreach: items_sorted">
+                                    <tr>
+                                        <td data-bind="text: last"></td>
+                                        <td data-bind="text: first"></td>
+                                        <td data-bind="text: email"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <script>
+function ViewModel5() {
+    this.items = ko.observableArray([
+        {last: "Dunne", first: "Jim", email: "jim.dunne@vivaki.com"},
+        {last: "Taggart", first: "Jay", email: "jay.taggart@vivaki.com"},
+        {last: "DuBose", first: "Lee", email: "lee.dubose@vivaki.com"},
+        {last: "Adams", first: "Lincoln", email: "lincoln.adams@vivaki.com"}
+    ]);
+    this.items_sorted = ko.computed(function() {
+        return this.items().sort(function(l,r) { return l.last > r.last; });
+    }, this);
+}
+                            </script>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>To the code!</h2>
+                </section>
+
+                <section>
+                    <h2>Questions?</h2>
+                </section>
+
             </div>
         </div>
 
