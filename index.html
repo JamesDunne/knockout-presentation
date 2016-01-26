@@ -357,6 +357,7 @@ function ViewModel3() {
 
                 <section data-state="video_show">
                     <h2>Whoopdee doo! I don't care.</h2>
+                    <!-- SHAME -->
                     <video id="video" class="fragment"
                            preload="auto" autoplay="autoplay" muted="muted" loop="loop"
                            width="480" height="342">
@@ -366,11 +367,42 @@ function ViewModel3() {
                     </video>
                 </section>
 
+                <section data-ko="ViewModel4">
+                    <h2>Let me show you something...</h2>
+                    <pre><code data-trim>
+function ViewModel() {
+  this.a = ko.observable(false);
+  this.b = ko.observable(false);
+  this.c = ko.observable(false);
+}
+                    </code></pre>
+                    <pre><code data-trim>
+&lt;label>&lt;input type="checkbox" data-bind="checked: a">A&lt;/label>&lt;br/>
+&lt;label>&lt;input type="checkbox" data-bind="checked: b">B&lt;/label>&lt;br/>
+&lt;label>&lt;input type="checkbox" data-bind="checked: c">C&lt;/label>&lt;br/>
+&lt;button data-bind="enable: a() && b() && c()">Enabled!&lt;/button>
+                    </code></pre>
+                    <div class="example">
+                        <label><input type="checkbox" data-bind="checked: a">A</label>
+                        <label><input type="checkbox" data-bind="checked: b">B</label>
+                        <label><input type="checkbox" data-bind="checked: c">C</label>
+                        <button data-bind="enable: a() && b() && c()">Enabled!</button>
+                    </div>
+                    <script>
+function ViewModel4() {
+  this.a = ko.observable(false);
+  this.b = ko.observable(false);
+  this.c = ko.observable(false);
+}
+                    </script>
+                </section>
+
                 <section>
-                    <h2>Whoopdee doo! I don't care.</h2>
-                    <img class="" style="width: 100%;" src="images/faith.gif" alt="I find your lack of faith disturbing" title="I find your lack of faith disturbing">
+                    <h2>I still don't care.</h2>
+                    <!-- VADER -->
+                    <img class="fragment" style="width: 100%;" src="images/faith.gif" alt="I find your lack of faith disturbing" title="I find your lack of faith disturbing">
                     <!--
-                    <img class="" style="width: 100%;" src="http://i.bittwiddlers.org/Kwn.gif" alt="I find your lack of faith disturbing" title="I find your lack of faith disturbing">
+                    <img class="fragment" style="width: 100%;" src="http://i.bittwiddlers.org/Kwn.gif" alt="I find your lack of faith disturbing" title="I find your lack of faith disturbing">
                     -->
                 </section>
             </div>
@@ -417,8 +449,8 @@ function ViewModel3() {
                 // Look up the view model constructor name in the global object:
                 var ctor = Function("return this")()[ctorName];
                 // Create a new view model instance and bind it:
-                var vm = new ctor();
-                ko.applyBindings(vm, slide);
+                slide.vm = new ctor();
+                ko.applyBindings(slide.vm, slide);
             }
 
             Reveal.addEventListener('video_show', function(e) {
