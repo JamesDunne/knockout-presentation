@@ -110,8 +110,14 @@
                     <h2>Why not just use jQuery?</h2>
                     <ul>
                         <li>Knockout and jQuery solve different problems.</li>
-                        <li class="fragment">Both can co-exist well together.</li>
-                        <li class="fragment">If you do use both, just use jQuery for animations, effects, and convenient components.</li>
+                        <li class="fragment">Both can co-exist on the same page.</li>
+                        <li class="fragment">If you do use both...
+                            <ul>
+                                <li>Use Knockout for the view binding</li>
+                                <li>Use jQuery only for animations<span class="fragment">, effects</span><span class="fragment">, <br/>
+                                    and occasionally convenient components (datepicker, multiselect)</span></li>
+                            </ul>
+                        </li>
                     </ul>
                 </section>
                 <section>
@@ -120,20 +126,23 @@
                 <section>
                     <h2>Why use Knockout?</h2>
                     <ul>
-                        <li class="fragment" data-fragment-index="2">jQuery UI manipulation is low-level and repetitive per binding.</li>
-                        <li class="fragment" data-fragment-index="2">Knockout binds the whole UI at a high level, binding all elements to a single view model.</li>
-
-                        <li class="fragment" data-fragment-index="3">jQuery UI binding is explicit by CSS selectors ('#id', '.class').</li>
-                        <li class="fragment" data-fragment-index="3">Knockout binds UI via data-bind attributes in HTML in a single call.</li>
-
-                        <li class="fragment" data-fragment-index="4">Knockout bindings are easily copyable to multiple elements.</li>
-                        <li class="fragment" data-fragment-index="5">Knockout state is held in the view model not DOM elements; jQuery state is held in ... ?</li>
+                        <li class="">jQuery UI manipulation is low-level and repetitive per binding.</li>
+                        <li class="">Knockout binds the whole UI at a high level, binding all elements to a single view model.</li>
                     </ul>
                 </section>
                 <section>
                     <h2>Why use Knockout?</h2>
                     <ul>
-                        <li>Knockout's observable pattern is a game-changer for UI development.</li>
+                        <li class="">jQuery UI binding is explicit by CSS selectors ('#id', '.class').</li>
+                        <li class="">Knockout binds UI via data-bind attributes in HTML in a single call and you never have to reapply it.</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Why use Knockout?</h2>
+                    <ul>
+                        <li class="">Knockout bindings are easily copyable to multiple elements.</li>
+                        <li class="">Knockout state is held in the view model not DOM elements; jQuery state is held in ... ?</li>
+                        <li class="">Knockout's observable pattern is a game-changer for UI development.</li>
                     </ul>
                 </section>
 
@@ -376,13 +385,13 @@ function ViewModel() {
   this.c = ko.observable(false);
 }
                     </code></pre>
-                    <pre><code data-trim>
+                    <pre class="fragment"><code data-trim>
 &lt;label>&lt;input type="checkbox" data-bind="checked: a">A&lt;/label>&lt;br/>
 &lt;label>&lt;input type="checkbox" data-bind="checked: b">B&lt;/label>&lt;br/>
 &lt;label>&lt;input type="checkbox" data-bind="checked: c">C&lt;/label>&lt;br/>
 &lt;button data-bind="enable: a() && b() && c()">Enabled!&lt;/button>
                     </code></pre>
-                    <div class="example">
+                    <div class="fragment example">
                         <label><input type="checkbox" data-bind="checked: a">A</label>
                         <label><input type="checkbox" data-bind="checked: b">B</label>
                         <label><input type="checkbox" data-bind="checked: c">C</label>
