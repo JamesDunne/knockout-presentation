@@ -476,40 +476,44 @@ function ViewModel() {
                                preload="auto" autoplay="autoplay" muted="muted" loop="loop"
                                width="480" height="342">
                             <source src="images/shame.webm" type="video/webm">
+                            <!--
                             <source src="//i.bittwiddlers.org/LZK.webm" type="video/webm">
                             <source src="//i.imgur.com/s4KXBTz.webm" type="video/webm">
+                            -->
                         </video>
                     </div>
                 </section>
 
                 <section data-ko="ViewModel3">
                     <h2>Let me show you something...</h2>
-                    <pre><code data-trim>
+                    <div class="stretch">
+                        <pre><code data-trim>
 function ViewModel() {
   this.a = ko.observable(false);
   this.b = ko.observable(false);
   this.c = ko.observable(false);
 }
-                    </code></pre>
-                    <pre class="fragment"><code data-trim data-noescape>
+                        </code></pre>
+                        <pre class="fragment"><code data-trim data-noescape>
 &lt;label>&lt;input type="checkbox" data-bind="checked: a">A&lt;/label>&lt;br/>
 &lt;label>&lt;input type="checkbox" data-bind="checked: b">B&lt;/label>&lt;br/>
 &lt;label>&lt;input type="checkbox" data-bind="checked: c">C&lt;/label>&lt;br/>
 &lt;button <mark>data-bind="enable: a() && b() && c()"</mark>>Enabled!&lt;/button>
-                    </code></pre>
-                    <div class="fragment example">
-                        <label><input type="checkbox" data-bind="checked: a">A</label>
-                        <label><input type="checkbox" data-bind="checked: b">B</label>
-                        <label><input type="checkbox" data-bind="checked: c">C</label>
-                        <button data-bind="enable: a() && b() && c()">Enabled!</button>
-                    </div>
-                    <script>
+                        </code></pre>
+                        <div class="fragment example">
+                            <label><input type="checkbox" data-bind="checked: a">A</label>
+                            <label><input type="checkbox" data-bind="checked: b">B</label>
+                            <label><input type="checkbox" data-bind="checked: c">C</label>
+                            <button data-bind="enable: a() && b() && c()">Enabled!</button>
+                        </div>
+                        <script>
 function ViewModel3() {
   this.a = ko.observable(false);
   this.b = ko.observable(false);
   this.c = ko.observable(false);
 }
-                    </script>
+                        </script>
+                    </div>
                 </section>
 
                 <section>
@@ -666,10 +670,16 @@ function ViewModel5() {
 
                 <section>
                     <h2>To the code!</h2>
+                    <img class="" style="width: 60%;" src="images/to-the-code.gif">
                 </section>
 
                 <section>
                     <h2>Questions?</h2>
+                    <video id="video" class=""
+                           preload="auto" autoplay="autoplay" muted="muted" loop="loop"
+                           width="1000" height="436">
+                        <source src="images/lunch.webm" type="video/webm">
+                    </video>
                 </section>
 
             </div>
