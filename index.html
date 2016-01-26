@@ -33,6 +33,10 @@
             .example {
                 background: #333333;
             }
+            mark {
+                background-color: #111170;
+                color: #ffffff;
+            }
 		</style>
 
         <!-- Printing and PDF exports -->
@@ -197,7 +201,6 @@ ko.applyBindings(vm);
 // or only apply bindings to a specific element and its children:
 ko.applyBindings(vm, document.getElementById("onlyThisElement"));
                     </code></pre>
-                    <p>Instantiate the view model object and call <pre class="inline"><code class="hljs javascript">ko.applyBindings()</code></pre> to apply the bindings in the HTML to the view model.</p>
                 </section>
 
                 <section>
@@ -237,19 +240,7 @@ ko.applyBindings(vm, document.getElementById("onlyThisElement"));
                     <section>
                         <h2>Bindings Example</h2>
                         <div class="stretch">
-                        <pre><code class="hljs html" data-trim>
-&lt;p>
-  Choose a ticket class:
-  &lt;select data-bind="options: tickets,
-                     optionsCaption: 'Choose...',
-                     optionsText: 'name',
-                     value: chosenTicket">&lt;/select>
-
-  &lt;button data-bind="enable: chosenTicket,
-                     click: resetTicket">Clear&lt;/button>
-&lt;/p>
-                        </code></pre>
-                        <pre class="fragment"><code class="hljs javascript" data-trim>
+                            <pre class=""><code class="hljs javascript" data-trim>
 function TicketsViewModel() {
   this.tickets = [
     { name: "Economy", price: 199.95 },
@@ -260,7 +251,19 @@ function TicketsViewModel() {
   this.resetTicket = function() { this.chosenTicket(null); };
 }
 ko.applyBindings(new TicketsViewModel());
-                        </code></pre>
+                            </code></pre>
+                            <pre class="fragment"><code class="hljs html" data-trim>
+&lt;p>
+  Choose a ticket class:
+  &lt;select data-bind="options: tickets,
+                     optionsCaption: 'Choose...',
+                     optionsText: 'name',
+                     value: chosenTicket">&lt;/select>
+
+  &lt;button data-bind="enable: chosenTicket,
+                     click: resetTicket">Clear&lt;/button>
+&lt;/p>
+                            </code></pre>
                         </div>
                     </section>
 
@@ -385,11 +388,11 @@ function ViewModel() {
   this.c = ko.observable(false);
 }
                     </code></pre>
-                    <pre class="fragment"><code data-trim>
+                    <pre class="fragment"><code data-trim data-noescape>
 &lt;label>&lt;input type="checkbox" data-bind="checked: a">A&lt;/label>&lt;br/>
 &lt;label>&lt;input type="checkbox" data-bind="checked: b">B&lt;/label>&lt;br/>
 &lt;label>&lt;input type="checkbox" data-bind="checked: c">C&lt;/label>&lt;br/>
-&lt;button data-bind="enable: a() && b() && c()">Enabled!&lt;/button>
+&lt;button <mark>data-bind="enable: a() && b() && c()"</mark>>Enabled!&lt;/button>
                     </code></pre>
                     <div class="fragment example">
                         <label><input type="checkbox" data-bind="checked: a">A</label>
