@@ -50,12 +50,7 @@
                 margin-left: 10px;
             }
 
-            input {
-                vertical-align: middle;
-                font-family: inherit;
-                font-size: large;
-            }
-            button {
+            input, button, select {
                 vertical-align: middle;
                 font-family: inherit;
                 font-size: large;
@@ -197,25 +192,25 @@
 
                 <section>
                     <h2>The View is...</h2>
-                    <pre><code class="hljs html" data-trim>
-&lt;span data-bind="text: message">&lt;/span>
+                    <pre><code class="hljs html" data-trim data-noescape>
+&lt;span <mark>data-bind</mark>="text: message">&lt;/span>
 
-&lt;select data-bind="options: tickets,
+&lt;select <mark>data-bind</mark>="options: tickets,
                    optionsCaption: 'Choose...',
                    optionsText: 'name',
                    value: chosenTicket">&lt;/select>
 
-&lt;button data-bind="click: runMe">Run!&lt;/button>
+&lt;button <mark>data-bind</mark>="click: runMe">Run!&lt;/button>
                     </code></pre>
                     <p>just HTML code with data-bind attributes applied to any element!</p>
                 </section>
 
                 <section>
                     <h2>The View Model is...</h2>
-                    <pre><code class="hljs javascript" data-trim>
+                    <pre><code class="hljs javascript" data-trim data-noescape>
 function ViewModel() {
-  this.message = ko.observable("Hello!");
-  this.counter = ko.observable(1);
+  this.message = <mark>ko.observable</mark>("Hello!");
+  this.counter = <mark>ko.observable</mark>(1);
 }
                     </code></pre>
                     <p>just a JavaScript object with observable properties!</p>
@@ -253,8 +248,8 @@ b([4]);   // set b to [4] and notify subscribers
                         <li>Observables are <em>functions</em>, not variables!</li>
                     </ul>
                     <pre class="fragment" data-fragment-index="1"><code class="hljs javascript" data-trim>
-                        var a = ko.observable(1);
-                        a = 2;      // DON'T DO THIS!
+var a = ko.observable(1);
+a = 2;      // DON'T DO THIS!
                     </code></pre>
                     <img class="fragment" data-fragment-index="1" style="width: 40%;" src="images/paddlin.gif">
                 </section>
