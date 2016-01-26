@@ -138,14 +138,15 @@
                     <h2>Why use Knockout?</h2>
                     <ul>
                         <li class="">jQuery UI binding is explicit by CSS selectors ('#id', '.class').</li>
-                        <li class="">Knockout binds UI via data-bind attributes in HTML in a single call and you never have to reapply it.</li>
+                        <li class="">Knockout binds UI via data-bind attributes in HTML in a single call.</li>
+                        <li>With Knockout, your JavaScript logic knows nothing about DOM elements.</li>
                     </ul>
                 </section>
                 <section>
                     <h2>Why use Knockout?</h2>
                     <ul>
-                        <li class="">Knockout bindings are easily copyable to multiple elements.</li>
-                        <li class="">Knockout state is held in the view model not DOM elements; jQuery state is held in ... ?</li>
+                        <li class="">Knockout bindings are easily copyable to multiple DOM elements.</li>
+                        <li class="">Knockout state is held in the view model, not DOM elements; jQuery state is held in ... ?</li>
                         <li class="">Knockout's observable pattern is a game-changer for UI development.</li>
                     </ul>
                 </section>
@@ -467,9 +468,14 @@ function ViewModel4() {
                 </section>
 
                 <section>
+                    <h2>Foreach binding</h2>
+                    <li></li>
+                </section>
+
+                <section>
                     <h2>Computed Observables</h2>
                     <ul>
-                        <li>Can be used for side-effects, AJAX queries, filtering, sorting, etc.</li>
+                        <li>Can be used for AJAX queries, filtering, sorting, etc.</li>
                     </ul>
                 </section>
             </div>
@@ -520,6 +526,7 @@ function ViewModel4() {
                 ko.applyBindings(slide.vm, slide);
             }
 
+            // Video stops after changing slides; make it play again:
             Reveal.addEventListener('video_show', function(e) {
                 // Reveal.getCurrentSlide() is wrong. There appears to be no way to know the current slide here!
                 var videos = document.getElementsByTagName("video");
